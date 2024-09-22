@@ -1,0 +1,36 @@
+/* start_page.css */
+
+/* 채팅 박스 */
+.chat-container {
+  display: flex;
+  align-items: flex-start;        /* 아이콘 & 텍스트 상단 정렬 */
+  margin-bottom: 10px;
+}
+
+/* 말풍선 스타일 */
+.chat-bubble {
+  background-color: #f1f0f0;
+  border-radius: 15px;
+  padding: 10px;
+  margin-left: 10px;              /* 아이콘과의 간격 */
+  max-width: 80%;
+}
+
+/* 왼쪽의 아이콘 스타일 */
+.chat-icon {
+  width: 30px;
+  margin-right: 10px;             /* 아이콘과 말풍선 사이의 간격 */
+}
+
+/* 이미지 말풍선*/
+/* .chat-bubble img.title-image {
+  width: 200px;
+  border-radius: 10px;
+}
+*/
+
+/* 텍스트 말풍선 */
+/* .chat-bubble .chat-text {
+  font-size: 16px;
+  line-height: 1.5;
+} */
