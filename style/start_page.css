@@ -1,5 +1,11 @@
 /* start_page.css */
 
+/* 타이틀 이미지 */
+.titleImg {
+  display: flex;
+  justify-content: center;
+}
+
 /* 채팅 박스 */
 .chat-container {
   display: flex;
