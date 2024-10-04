@@ -12,7 +12,7 @@ def show_edit_modal():
    gender = st.radio(
       "성별을 선택해주세요.",
       options=['남성', '여성'],
-      index=['남성', '여성'].index(st.session_state.get('gdner', '남성'))
+      index=['남성', '여성'].index(st.session_state.get('gender', '남성'))
    )
 
    # 연령대 수정 (셀렉트박스)
