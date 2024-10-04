@@ -1,0 +1,14 @@
+# Python 관련
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+
+### VS Code ###
+.vscode/
+
+
+### etc ###
+data/
+*.ipynb
+.ipynb_checkpoints/
