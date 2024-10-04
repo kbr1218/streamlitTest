@@ -1,6 +1,10 @@
 # app.py
 import streamlit as st
 
+# 이미지 변수 선언
+titleImgPath = 'https://raw.githubusercontent.com/kbr1218/streamlitTest/main/imgs/title.png'
+botImgPath = 'https://raw.githubusercontent.com/kbr1218/streamlitTest/main/imgs/dolhareubang2.png'
+
 # 페이지 제목 설정
 st.set_page_config(page_title="시작 페이지", page_icon=":🍊:", layout="wide",
                    initial_sidebar_state='collapsed')
@@ -20,11 +24,6 @@ st.markdown(
 # CSS 파일 불러오기
 with open('style/start_page.css', encoding='utf-8') as css_file:
     st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
-
-# 이미지 변수 선언
-titleImgPath = 'https://raw.githubusercontent.com/kbr1218/streamlitTest/main/imgs/title.png'
-botImgPath = 'https://raw.githubusercontent.com/kbr1218/streamlitTest/main/imgs/dolhareubang.png'
-
 
 # 타이틀 이미지
 titleImg = (f"""
@@ -66,6 +65,7 @@ st.markdown(f"""
 
 # 시작하기 버튼 (or 로그인 버튼)
 st.write("")
+
 
 start_button = st.page_link("pages/survey.py",
                               label="✈️시작하기🚢",
