@@ -47,14 +47,18 @@ def show_edit_modal():
 
    # 수정 내용 저장 버튼
    if st.button("수정 내용 저장"):
-      # session_state에 수정된 값 저장
-      st.session_state['gender'] = gender
-      st.session_state['age'] = age
-      st.session_state['visit_dates'] = visit_dates
-      st.session_state['visit_times'] = visit_times
-      st.session_state['region'] = region
+      # 방문지역 최소 하나 이상 선택하도록 설정
+      if not region:
+         st.warning("방문 지역을 최소 1개 이상 선택해주세요.")
+      else:
+         # session_state에 수정된 값 저장
+         st.session_state['gender'] = gender
+         st.session_state['age'] = age
+         st.session_state['visit_dates'] = visit_dates
+         st.session_state['visit_times'] = visit_times
+         st.session_state['region'] = region
 
-      # 알림 메시지
-      st.success("수정된 정보가 저장되었습니다!")
-      st.rerun()  # 페이지 새로고침
+         # 알림 메시지
+         st.success("수정된 정보가 저장되었습니다!")
+         st.rerun()  # 페이지 새로고침
 

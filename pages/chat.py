@@ -7,7 +7,7 @@ st.set_page_config(page_title="main", page_icon="💬", layout="wide",
                    initial_sidebar_state='expanded')
 
 # CSS 파일 불러오기
-with open('style/main_page.css', encoding='utf-8') as css_file:
+with open('style/chat_page.css', encoding='utf-8') as css_file:
     st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
 
 # 사이드바
