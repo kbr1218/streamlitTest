@@ -10,5 +10,5 @@ venv/
 
 ### etc ###
 data/
-*.ipynb
+#*.ipynb
 .ipynb_checkpoints/
