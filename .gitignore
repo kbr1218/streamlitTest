@@ -12,3 +12,4 @@ venv/
 data/
 #*.ipynb
 .ipynb_checkpoints/
+시간별비중시각화/
