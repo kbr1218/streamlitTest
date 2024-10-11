@@ -24,8 +24,8 @@ def show_tab_trend():
   col1, col2 = st.columns(2)
   with col1:
     # selectbox
-    ym_options = df['MONTH'].unique()
-    type_options = df['TYPE_NAME'].unique()
+    ym_options = sorted(df['MONTH'].unique())
+    type_options = sorted(df['MCT_TYPE'].unique())
 
     col1_1, col1_2 = st.columns(2)
     with col1_1:
@@ -62,9 +62,9 @@ def show_tab_trend():
 
 
     # 선택한 MONTH과 TYPE_NAME에 따라 데이터 필터링
-    filtered_data = df[(df['MONTH'] == selected_ym) & (df['TYPE_NAME'] == selected_type)]
+    filtered_data = df[(df['MONTH'] == selected_ym) & (df['MCT_TYPE'] == selected_type)]
     # 현지인 비중 백분율로 변환
-    filtered_data['LOCAL_UE_CNT_RAT'] = (filtered_data['LOCAL_UE_CNT_RAT'] * 100).round(2).astype(str) + '%'
+    filtered_data['LOCAL_UE_CNT_RAT'] = filtered_data['LOCAL_UE_CNT_RAT'].astype(str) + '%'
 
     # 데이터는 최대 5개로 제한 & 랜덤으로 추출
     filtered_data = filtered_data.sample(n=min(5, len(filtered_data)), random_state=st.session_state.random_seed)
