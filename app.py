@@ -65,10 +65,8 @@ st.markdown(f"""
 
 # 시작하기 버튼 (or 로그인 버튼)
 st.write("")
-
-
 start_button = st.page_link("pages/survey.py",
-                              label="✈️시작하기🚢",
+                              label="**시작하기✈️**",
                             #   use_container_width=True
                               )
 

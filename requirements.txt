@@ -3,6 +3,7 @@
 streamlit
 folium
 pandas
+shapely
 
 # streamlit-folium
 # >> 이 경우에만 `conda install conda-forge::streamlit-folium
