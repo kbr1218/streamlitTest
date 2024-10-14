@@ -3,7 +3,6 @@ import streamlit as st
 
 from .widgets import weather, calendar
 from .modal import edit_modal
-from .modal import logout_modal
 
 def show_sidebar():
   ### 1. 사용자 정보 ###
@@ -55,8 +54,3 @@ def show_sidebar():
 
   ### 3. 날씨 위젯 ###
   weather.show_weather()
-
-  ### 4. 로그아웃 버튼 ###
-  if st.button("**로그아웃➡️**",
-               type='secondary'):
-     logout_modal.show_logout_modal()
