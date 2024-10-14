@@ -15,7 +15,8 @@ df_month = pd.read_csv("testdata/rank_by_month_type.csv", encoding='cp949')
 df_local = pd.read_csv("testdata\local_over_80.csv", encoding='cp949')
 
 def show_tab_trend(): 
-  #### 01. 월별 타입별 방문객 순위 ###
+  #####################################
+  #### 01. 월별 타입별 방문객 순위 ####
   st.write("")
   graph_type_options = df_month['MCT_TYPE'].unique()
   # 컬럼 레이아웃 설정
@@ -62,8 +63,8 @@ def show_tab_trend():
 
 
 
-
-  #### 02. 현지인 비중 상위 80% 식당 ###
+  #######################################
+  #### 02. 현지인 비중 상위 80% 식당 ####
   # 변수 초기화
   if 'map_selected_ym' not in st.session_state:
       st.session_state.map_selected_ym = None
@@ -72,7 +73,7 @@ def show_tab_trend():
   if 'random_seed' not in st.session_state:
       st.session_state.random_seed = int(time.time())
 
-  map_col1, map_col2 = st.columns(2)
+  map_col1, map_col2 = st.columns([3, 2])
   with map_col1:
     # title
     st.subheader("🗺️현지인이 선택한 맛집 알아보기")
@@ -86,46 +87,38 @@ def show_tab_trend():
     # 첫 번째 값을 기본값으로 설정
     select_col1, select_col2 = st.columns(2)
     with select_col1:
-      map_selected_ym = st.selectbox('Select Month', map_ym_options, index=0, key='map1')
+      map_selected_ym = st.selectbox('Select Month', map_ym_options, key='map1', index=None, placeholder="Select Month")
     with select_col2:
-      map_selected_type = st.selectbox('Select Type', map_type_options, index=0, key='map2')
+      map_selected_type = st.selectbox('Select Type', map_type_options, key='map2', index=None, placeholder="Select Type")
     
-    # 기본 아이콘 설정
-    icon_name='utensils'
-
     # MONTH/TYPE이 변경된 경우에만 random_seed 갱신
     if (map_selected_ym != st.session_state.map_selected_ym) or (map_selected_type != st.session_state.map_selected_type):
       st.session_state.random_seed = int(time.time())
       st.session_state.map_selected_ym = map_selected_ym
       st.session_state.map_selected_type = map_selected_type
     
-    if st.session_state.map_selected_type == '커피':
-      icon_name='coffee'
-    elif st.session_state.map_selected_type == '디저트/간식':
-        icon_name='ice-cream'
-    elif st.session_state.map_selected_type == '베이커리':
-      icon_name='bread-slice'
-    elif st.session_state.map_selected_type == '세계 요리':
-      icon_name='globe'
-    elif st.session_state.map_selected_type == '맥주/요리주점':
-      icon_name='beer'
-    elif st.session_state.map_selected_type == '치킨':
-      icon_name='drumstick-bite'
-    elif st.session_state.map_selected_type == '패스트푸드/간단한 식사':
-      icon_name='hamburger'
-    elif st.session_state.map_selected_type == '피자':
-      icon_name='pizza-slice'
+    # 아이콘 설정
+    icon_mapping = {
+        '커피': 'coffee',
+        '디저트/간식': 'ice-cream',
+        '베이커리': 'bread-slice',
+        '세계 요리': 'globe',
+        '맥주/요리주점': 'beer',
+        '치킨': 'drumstick-bite',
+        '패스트푸드/간단한 식사': 'hamburger',
+        '피자': 'pizza-slice'
+    }
+    icon_name = icon_mapping.get(st.session_state.map_selected_type, 'utensils')
+
 
     # 선택한 MONTH과 TYPE_NAME에 따라 데이터 필터링
     filtered_data = df_local[(df_local['MONTH'] == map_selected_ym) & (df_local['MCT_TYPE'] == map_selected_type)]
 
-    # 필터링된 데이터가 없을 경우 기본 데이터를 사용하여 지도 출력
-    if filtered_data.empty:
-      st.warning("월과 Type을 선택해주세요")
-
-      # 선택하지 않으면 빈 지도 출력
-      m = folium.Map(location=[LAT, LONG], zoom_start=10)
-
+    # 필터링된 데이터가 없을 경우
+    if map_selected_ym is None or map_selected_type is None:
+      st.info("월과 Type을 선택해주세요.")
+    elif filtered_data.empty:
+      st.warning("해당하는 매장이 없습니다.")
     else:
       # 현지인 비중 백분율로 변환
       filtered_data.loc[:, 'LOCAL_UE_CNT_RAT'] = filtered_data['LOCAL_UE_CNT_RAT'].astype(str) + '%'
@@ -145,16 +138,16 @@ def show_tab_trend():
           icon=folium.Icon(color="orange", icon=icon_name, prefix='fa')
         ).add_to(m)
     
-    # folium 지도를 streamlit에 표시
-    st_folium(m, width=800, height=350)
+      # folium 지도를 streamlit에 표시
+      st_folium(m, width=800, height=350)
 
-    # 선택한 식당 정보를 테이블로 출력
-    st.write("**📍매장 정보**")
-    filtered_data_display = filtered_data[['MCT_NM', 'ADDR', 'LOCAL_UE_CNT_RAT']].rename(
-       columns={
-          'MCT_NM': '매장명',
-          'ADDR': '주소',
-          'LOCAL_UE_CNT_RAT': '현지인 이용 비중'
-          }
-    ).reset_index(drop=True)
-    st.table(filtered_data_display)
+      # 선택한 식당 정보를 테이블로 출력
+      st.write("**📍매장 정보**")
+      filtered_data_display = filtered_data[['MCT_NM', 'ADDR', 'LOCAL_UE_CNT_RAT']].rename(
+        columns={
+            'MCT_NM': '매장명',
+            'ADDR': '주소',
+            'LOCAL_UE_CNT_RAT': '현지인 이용 비중'
+            }
+      ).reset_index(drop=True)
+      st.table(filtered_data_display)
