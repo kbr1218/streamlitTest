@@ -2,13 +2,15 @@
 import streamlit as st
 
 from .widgets import weather, calendar
-from .modal import edit_modal
+from .modal import edit_modal, source_modal
 
 def show_sidebar():
   ### 1. 사용자 정보 ###
   if 'user_name' in st.session_state:
     st.subheader(f":rainbow[{st.session_state['user_name']}]님의 제주 여행🏝️")
-  
+  else:
+    st.subheader(":rainbow[신나는] 제주 여행🏝️")
+
   # 1-1. 성별
   if 'gender' in st.session_state:
       st.markdown(f"**성별**: {st.session_state['gender']}")
@@ -54,3 +56,9 @@ def show_sidebar():
 
   ### 3. 날씨 위젯 ###
   weather.show_weather()
+
+  st.divider()
+
+  ### 4. 데이터 출처 확인 모달 ###
+  if st.button("뭐라고적지", type='secondary'):
+    source_modal.show_source_modal()

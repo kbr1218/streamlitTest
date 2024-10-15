@@ -3,7 +3,7 @@ import streamlit as st
 import datetime
 
 # 수정하기 모달
-@st.dialog("여행 정보 수정하기")
+@st.dialog("여행 정보 수정하기🖋️")
 def show_edit_modal():
    # 기존 데이터를 불러와서 수정 가능하도록 입력 필드를 제공하는 부분
    st.markdown("### 여행 정보를 변경할 수 있습니다.")
