@@ -1,4 +1,4 @@
-# mainpage.py
+# chat.py
 import streamlit as st
 from pages.subpages import sidebar, tab_map, tab_chat, tab_trend
 
